@@ -1,0 +1,24 @@
+{
+  "name": "library-book-search",
+  "version": "1.0.0",
+  "description": "图书馆书籍查询小程序",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orbem/library-book-search.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orbem/library-book-search/issues"
+  },
+  "homepage": "https://github.com/orbem/library-book-search#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql": "^2.16.0"
+  }
+}
