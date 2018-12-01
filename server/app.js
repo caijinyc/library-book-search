@@ -27,6 +27,7 @@ app.listen(3000);
 
 function getSearchName (req, res) {
     res.set('Content-Type', 'application/json');
+    res.header('Access-Control-Allow-Origin', '*');
     let name = null, searchType = null;
     if (req.query.bookname && req.query.bookname !== '') {
         // 当数据为 bookname 时，检索书籍名称
