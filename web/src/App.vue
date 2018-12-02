@@ -1,21 +1,36 @@
 <template>
   <div id="app">
-    <Homepage/>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+    <Footer />
   </div>
 </template>
 
 <script>
-import Homepage from './components/Homepage';
+import axios from 'axios';
+
+import Footer from './components/Footer';
 
 export default {
   name: 'app',
   components: {
-    Homepage
+    Footer
+  },
+  data () {
+    return {
+      searchBooksList: null
+    };
+  },
+  methods: {
   }
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "./common/scss/reset.scss";
+
 #app {
+  height: 100%;
 }
 </style>

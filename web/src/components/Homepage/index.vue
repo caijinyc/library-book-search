@@ -1,6 +1,6 @@
 <template>
   <div class="homepage">
-    <div class="search-container">
+    <div class="search-container" v-show="!showBooksList">
       <div class="logo">
         <i class="icon-books iconfont"></i>
       </div>
@@ -10,10 +10,11 @@
         <button @click="getBookInfo">搜索</button>
       </div>
     </div>
-    <div class="footer">
-      <!-- <button class="footer-btn-search"></button>
-      <button class="footer-btn-search"></button>
-      <button class="footer-btn-search"></button> -->
+    <div class="books-list" v-show="showBooksList" >
+      <BooksList
+        :searchedBooksInfo="searchedBooksInfo"
+        @hideBooksList="hideBooksList"
+      />
     </div>
   </div>
 </template>
@@ -21,23 +22,36 @@
 <script>
 import axios from 'axios';
 
+import BooksList from '../BooksList';
+
 export default {
   name: 'Homepage',
+  components: {
+    BooksList
+  },
   data () {
     return {
       searchName: '',
       searhType: {
         bookName: 1,
         bookAuthor: 2
-      }
+      },
+      searchedBooksInfo: [],
+      showBooksList: false
     };
   },
   methods: {
     getBookInfo () {
-      const url = `http://localhost:3000/searchname?bookname=${this.searchName}`;
+      const url = `http://192.168.0.123:3000/searchname?bookname=${this.searchName}`;
       axios.get(url).then((res) => {
+        // 拿到检索结果后显示 list 界面
+        this.searchedBooksInfo = res.data;
+        this.showBooksList = true;
         console.log('res: ', res);
       });
+    },
+    hideBooksList () {
+      this.showBooksList = false;
     }
   }
 };
