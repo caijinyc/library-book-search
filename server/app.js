@@ -52,6 +52,7 @@ function getBookNum (req, res) {
     let num = req.query.num;
     const sql = `SELECT * FROM hellomysql WHERE num = ${num};`;
     db.query(sql, function(err, result) {
+        res.header('Access-Control-Allow-Origin', '*');
         res.set('Content-Type', 'application/json');
         res.send(result);
     });
