@@ -1,3 +1,5 @@
+// 收藏夹页面 router: /collection
+
 <template>
   <div class="collection-container">
     收藏

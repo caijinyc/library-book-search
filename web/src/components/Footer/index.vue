@@ -1,3 +1,5 @@
+// 底部 Footer 导航栏
+
 <template>
   <div class="footer-container">
       <router-link to="/search">

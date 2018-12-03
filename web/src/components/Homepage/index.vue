@@ -46,8 +46,10 @@ export default {
       axios.get(url).then((res) => {
         // 拿到检索结果后显示 list 界面
         this.searchedBooksInfo = res.data;
-        this.showBooksList = true;
-        console.log('res: ', res);
+        this.$store.commit('SET_BOOKS_LIST', res.data);
+        this.$router.push('/bookslist');
+        // this.showBooksList = true;
+        // console.log('res: ', res);
       });
     },
     hideBooksList () {
