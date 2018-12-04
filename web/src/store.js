@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    searchName: '',
     bookDetail: null,
     booksList: null
   },
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     SET_BOOKS_LIST (state, payload) {
       state.booksList = payload;
+    },
+    SET_SEARCH_NAME (state, payload) {
+      state.searchName = payload;
     }
   }
 });

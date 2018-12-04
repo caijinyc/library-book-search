@@ -9,9 +9,14 @@
         </div>
         <div class="get-search-name">
           <i class="iconfont icon-search"></i>
-          <input type="text" class="search-name">
+          <input
+            type="text"
+            class="search-name"
+            :placeholder="placeholderSearchName"
+            v-model="searchName"
+          >
         </div>
-        <button>搜索</button>
+        <button @click="getBookInfo">搜索</button>
       </div>
 
       <!-- 查找书籍结果展示 -->
@@ -47,16 +52,27 @@
 <script>
 import axios from 'axios';
 
+const DEFAULT_PLACEHOLDER_SEARCH_NAME = '请输入书籍名称';
+
 export default {
   name: 'BooksList',
   data () {
     return {
+      placeholderSearchName: DEFAULT_PLACEHOLDER_SEARCH_NAME
     };
   },
   computed: {
     // 获取 vuex 中的检索结果
     searchedBooksInfo () {
       return this.$store.state.booksList;
+    },
+    searchName: {
+      get () {
+        return this.$store.state.searchName;
+      },
+      set (val) {
+        this.$store.commit('SET_SEARCH_NAME', val);
+      }
     }
   },
   methods: {
@@ -83,12 +99,18 @@ export default {
     getBookInfoByNum (num) {
       const url = `http://192.168.0.123:3000/booknum?num=${num}`;
       axios.get(url).then((res) => {
-        // console.log('res', res);
         this.$store.commit('SET_BOOK_DETAIL', res.data[0]);
         this.$router.push('/bookdetail');
       }).catch(() => {
         // TODO：发出错误提示
         // console.log('err');
+      });
+    },
+    getBookInfo () {
+      const url = `http://192.168.0.123:3000/searchname?bookname=${this.searchName}`;
+      axios.get(url).then((res) => {
+        // 拿到检索结果后显示 list 界面
+        this.$store.commit('SET_BOOKS_LIST', res.data);
       });
     }
   }
@@ -100,7 +122,7 @@ export default {
 
   .books-list-container {
     position: absolute;
-    top: 20px;
+    top: 25px;
     left: 0px;
     width: 100%;
     background: #fff;
@@ -114,7 +136,7 @@ export default {
     position: fixed;
     top: 0px;
     left: 0px;
-    height: 45px;
+    height: 50px;
     padding: 5px 15px;
     box-sizing: border-box;
     width: 100%;
@@ -139,18 +161,20 @@ export default {
 
       i {
         position: absolute;
-        top: 6px;
-        left: 8px;
-        font-size: 17px;
+        top: 9px;
+        left: 10px;
+        font-size: 16px;
         color: $color-lightgray;
       }
 
       input {
-        height: 28px;
-        box-sizing: border-box;
-        padding: 0 15px 0 30px;
-        border-radius: 8px;
+        padding: 0 15px 0 32px;
         width: 100%;
+        height: 35px;
+        font-size: 14px;
+        line-height: 35px;
+        box-sizing: border-box;
+        border-radius: 8px;
         outline: none;
         border: none;
       }

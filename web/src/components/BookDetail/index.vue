@@ -129,13 +129,6 @@ export default {
       }
    }
 
-  // .decoration {
-  //   margin: 15px 0 15px 2px;
-  //   width: 20px;
-  //   height: 10px;
-  //   background: $color-lightgray;
-  // }
-
   .book-other-info {
     margin-bottom: 15px;
     line-height: 24px;
