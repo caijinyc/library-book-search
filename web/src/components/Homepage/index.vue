@@ -6,28 +6,40 @@
       </div>
       <div class="input-container">
         <i class="icon-search iconfont"></i>
-        <input type="text" v-model="searchName" :placeholder="placeholderSearchName">
+        <input
+          type="text"
+          v-model="searchName"
+          :placeholder="placeholderSearchName"
+          @keyup.enter="getBookInfo"
+        >
         <button @click="getBookInfo">搜索</button>
       </div>
     </div>
     <div class="books-list" v-show="showBooksList" >
     </div>
+    <Loding text="查询中" class="loding-container" v-show="showLoding"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 
+import Loding from '../../base/Loding';
+
 const DEFAULT_PLACEHOLDER_SEARCH_NAME = '请输入书籍名称';
 
 export default {
   name: 'Homepage',
+  components: {
+    Loding
+  },
   data () {
     return {
       searhType: {
         bookName: 1,
         bookAuthor: 2
       },
+      showLoding: false,
       searchedBooksInfo: [],
       showBooksList: false,
       placeholderSearchName: DEFAULT_PLACEHOLDER_SEARCH_NAME
@@ -45,9 +57,11 @@ export default {
   },
   methods: {
     getBookInfo () {
+      this.showLoding = true;
       const url = `http://192.168.0.123:3000/searchname?bookname=${this.searchName}`;
       axios.get(url).then((res) => {
         // 拿到检索结果后显示 list 界面
+        this.showLoding = false;
         this.$store.commit('SET_BOOKS_LIST', res.data);
         this.$router.push('/bookslist');
       });
@@ -67,7 +81,7 @@ export default {
   }
 
   .search-container {
-    margin-top: 120px;
+    margin-top: 23vh;
 
     .logo {
       margin-bottom: 40px;
@@ -114,6 +128,13 @@ export default {
         border-radius: 0 13px 13px 0;
         outline: none;
       }
-    }  
+    }
  }
+
+  .loding-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+  }
 </style>

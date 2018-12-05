@@ -14,6 +14,7 @@
             class="search-name"
             :placeholder="placeholderSearchName"
             v-model="searchName"
+            @keyup.enter="getBookInfo"
           >
         </div>
         <button @click="getBookInfo">搜索</button>
@@ -22,7 +23,8 @@
       <!-- 查找书籍结果展示 -->
       <div class="books-list-container">
         <div class="tip" v-if="searchedBooksInfo.length === 0">
-          <p>没有找到需要的书</p>
+          <i class="iconfont icon-baoqian"></i>
+          <p>伤心，没有找到需要的书...</p>
         </div>
         <ul class="books-list" v-else>
           <li
@@ -33,32 +35,39 @@
             <p class="title">{{ item.series }}</p>
             <p class="author">
               <span class="lil-title">
-                作者: 
+                作者 {{ parseAuthor(item.publisher) }} / 出版 {{ item.bookman }}
               </span>
-              {{ parseAuthor(item.publisher) }}
+              
             </p>
-            <p class="book-concern">
+            <!-- <p class="book-concern">
               <span class="lil-title">
                 出版: 
               </span>
-              {{ item.bookman }}
-            </p>
+              
+            </p> -->
           </li>
         </ul>
       </div>
+      <Loding class="loding-container" text="请等待" v-show="showLoding"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 
+import Loding from '../../base/Loding';
+
 const DEFAULT_PLACEHOLDER_SEARCH_NAME = '请输入书籍名称';
 
 export default {
   name: 'BooksList',
+  components: {
+    Loding
+  },
   data () {
     return {
-      placeholderSearchName: DEFAULT_PLACEHOLDER_SEARCH_NAME
+      placeholderSearchName: DEFAULT_PLACEHOLDER_SEARCH_NAME,
+      showLoding: false
     };
   },
   computed: {
@@ -97,8 +106,10 @@ export default {
       this.$router.go(-1);
     },
     getBookInfoByNum (num) {
+      this.showLoding = true;
       const url = `http://192.168.0.123:3000/booknum?num=${num}`;
       axios.get(url).then((res) => {
+        this.showLoding = false;
         this.$store.commit('SET_BOOK_DETAIL', res.data[0]);
         this.$router.push('/bookdetail');
       }).catch(() => {
@@ -107,8 +118,10 @@ export default {
       });
     },
     getBookInfo () {
+      this.showLoding = true;
       const url = `http://192.168.0.123:3000/searchname?bookname=${this.searchName}`;
       axios.get(url).then((res) => {
+        this.showLoding = false;
         // 拿到检索结果后显示 list 界面
         this.$store.commit('SET_BOOKS_LIST', res.data);
       });
@@ -128,6 +141,22 @@ export default {
     background: #fff;
     // 使用 z-index 覆盖 Footer
     z-index: 1;
+
+    .tip {
+      margin-top: 150px;
+      text-align: center;
+      color: $color-theme-gray;
+
+      i {
+        font-size: 70px;
+        opacity: 0.5;
+      }
+
+      p {
+        margin-top: 23px;
+        font-size: 16px;
+      }
+    }
   }
 
   .search-container {
@@ -201,7 +230,7 @@ export default {
       
       .title {
         font-size: 24px;
-        font-weight: bold;
+        // font-weight: bold;
         color: $color-text;
       }
 
@@ -210,5 +239,12 @@ export default {
         color: $color-text;
       }
     }
+  }
+  .loding-container {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    z-index: 999;
   }
 </style>
