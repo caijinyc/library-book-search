@@ -6,6 +6,7 @@
       <div></div>
     </div>
     <p>{{ text }}</p>
+    <div class="background"></div>
   </div>
 </template>
 
@@ -53,10 +54,22 @@
   }
 
   .loding-container {
+    position: relative;
     width: 100px;
     height: 100px;
     border-radius: 10px;
-    background: $color-border-divide;
+
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 100px;
+      background: $color-border-divide;
+      opacity: 0.9;
+      border-radius: 10px;
+      z-index: -1;
+    }
 
     p {
       font-size: 14px;

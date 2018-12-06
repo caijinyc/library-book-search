@@ -30,7 +30,7 @@
   @import "../../common/scss/variable.scss";
 
   .no-collection-note {
-    margin-top: 30vh;
+    padding-top: 30vh;
     width: 100%;
     text-align: center;
 

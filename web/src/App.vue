@@ -28,6 +28,10 @@ export default {
 <style lang="scss">
 @import "./common/scss/reset.scss";
 
+html, body {
+  height: 100%;
+}
+
 body {
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB",STHeiti,"Microsoft YaHei","Microsoft JhengHei","Source Han Sans SC","Noto Sans CJK SC","Source Han Sans CN","Noto Sans SC","Source Han Sans TC","Noto Sans CJK TC","WenQuanYi Micro Hei",SimSun,sans-serif;
 }

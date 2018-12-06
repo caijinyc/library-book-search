@@ -1,7 +1,7 @@
 // 书籍详情页面 router: /bookdetail
 
 <template>
-<transition name="slide">
+<!-- <transition name="slide"> -->
   <div class="book-detail-container">
     <!-- 顶栏 -->
     <div class="header">
@@ -69,7 +69,7 @@
       </table>
     </div>
   </div>  
-</transition>
+<!-- </transition> -->
 </template>
 
 <script>

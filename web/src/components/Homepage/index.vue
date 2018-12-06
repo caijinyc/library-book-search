@@ -18,6 +18,7 @@
     <div class="books-list" v-show="showBooksList" >
     </div>
     <Loding text="查询中" class="loding-container" v-show="showLoding"/>
+    <Alert text="您还没有输入哦~" class="alert-container" v-show="showAlert" />
   </div>
 </template>
 
@@ -25,13 +26,15 @@
 import axios from 'axios';
 
 import Loding from '../../base/Loding';
+import Alert from '../../base/Alert';
 
 const DEFAULT_PLACEHOLDER_SEARCH_NAME = '请输入书籍名称';
 
 export default {
   name: 'Homepage',
   components: {
-    Loding
+    Loding,
+    Alert
   },
   data () {
     return {
@@ -40,6 +43,7 @@ export default {
         bookAuthor: 2
       },
       showLoding: false,
+      showAlert: false,
       searchedBooksInfo: [],
       showBooksList: false,
       placeholderSearchName: DEFAULT_PLACEHOLDER_SEARCH_NAME
@@ -57,8 +61,15 @@ export default {
   },
   methods: {
     getBookInfo () {
+      if (!this.searchName) {
+        this.showAlert = true;
+        setTimeout(() => {
+          this.showAlert = false;
+        }, 1000);
+        return;
+      }
       this.showLoding = true;
-      const url = `http://192.168.0.123:3000/searchname?bookname=${this.searchName}`;
+      const url = `http://192.168.31.28:3000/searchname?bookname=${this.searchName}`;
       axios.get(url).then((res) => {
         // 拿到检索结果后显示 list 界面
         this.showLoding = false;
@@ -81,7 +92,7 @@ export default {
   }
 
   .search-container {
-    margin-top: 23vh;
+    padding-top: 24vh;
 
     .logo {
       margin-bottom: 40px;
@@ -132,6 +143,13 @@ export default {
  }
 
   .loding-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  .alert-container {
     position: fixed;
     top: 50%;
     left: 50%;

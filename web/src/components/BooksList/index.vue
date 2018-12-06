@@ -49,6 +49,7 @@
         </ul>
       </div>
       <Loding class="loding-container" text="请等待" v-show="showLoding"/>
+      <Alert class="alert-container" text="您没有输入哦~" v-show="showAlert"/>
   </div>
 </template>
 
@@ -56,18 +57,21 @@
 import axios from 'axios';
 
 import Loding from '../../base/Loding';
+import Alert from '../../base/Alert';
 
 const DEFAULT_PLACEHOLDER_SEARCH_NAME = '请输入书籍名称';
 
 export default {
   name: 'BooksList',
   components: {
-    Loding
+    Loding,
+    Alert
   },
   data () {
     return {
       placeholderSearchName: DEFAULT_PLACEHOLDER_SEARCH_NAME,
-      showLoding: false
+      showLoding: false,
+      showAlert: false
     };
   },
   computed: {
@@ -107,7 +111,7 @@ export default {
     },
     getBookInfoByNum (num) {
       this.showLoding = true;
-      const url = `http://192.168.0.123:3000/booknum?num=${num}`;
+      const url = `http://192.168.31.28:3000/booknum?num=${num}`;
       axios.get(url).then((res) => {
         this.showLoding = false;
         this.$store.commit('SET_BOOK_DETAIL', res.data[0]);
@@ -118,8 +122,15 @@ export default {
       });
     },
     getBookInfo () {
+      if (!this.searchName) {
+        this.showAlert = true;
+        setTimeout(() => {
+          this.showAlert = false;
+        }, 1000);
+        return;
+      }
       this.showLoding = true;
-      const url = `http://192.168.0.123:3000/searchname?bookname=${this.searchName}`;
+      const url = `http://192.168.31.28:3000/searchname?bookname=${this.searchName}`;
       axios.get(url).then((res) => {
         this.showLoding = false;
         // 拿到检索结果后显示 list 界面
@@ -134,10 +145,11 @@ export default {
   @import "../../common/scss/variable.scss";
 
   .books-list-container {
-    position: absolute;
-    top: 25px;
-    left: 0px;
+    position: relative;
+    padding-top: 25px;
+    box-sizing: border-box;
     width: 100%;
+    min-height: 100%;
     background: #fff;
     // 使用 z-index 覆盖 Footer
     z-index: 1;
@@ -240,7 +252,8 @@ export default {
       }
     }
   }
-  .loding-container {
+  
+  .alert-container, .loding-container {
     position: fixed;
     top: 40%;
     left: 50%;
