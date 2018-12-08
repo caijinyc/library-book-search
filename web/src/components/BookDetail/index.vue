@@ -9,8 +9,8 @@
         <i class="iconfont icon-back" />
       </span>
       书籍详情
-      <span class="collect" @click="">
-        <i class="iconfont icon-collect" />
+      <span class="collect" @click="collect" >
+        <i class="iconfont icon-collect" :class="{ 'true' : collectActive}"/>
       </span>
     </div>
 
@@ -73,10 +73,13 @@
 </template>
 
 <script>
+// import Store from '../../common/js/storage.js';
+
 export default {
   name: 'BookDetail',
   data () {
     return {
+
     };
   },
   updated () {
@@ -87,11 +90,25 @@ export default {
     bookDetail () {
       return this.$store.state.bookDetail;
     },
-    
+    collectionList () {
+      return this.$store.state.collectionList;
+    },
     bookStatus () {
       return JSON.parse(this.bookDetail.status);
     },
-
+    cacheBookInfo () {
+      return {
+        num: this.bookDetail.num,
+        name: this.bookDetail.series,
+        author: this.parseAuthor,
+        bookman: this.bookDetail.bookman
+      };
+    },
+    collectActive () {
+      return  (this.collectionList.findIndex((el) => {
+        return el.num === this.bookDetail.num;
+      })) > -1;
+    },
     // 解析作者名，先解析 JSON
     // 1. 没有作者名直接返回：'无'
     // 2. 1 个作者直接返回：'作者名称'
@@ -114,6 +131,14 @@ export default {
     }
   },
   methods: {
+    /**
+     * 1.将所有收藏的书籍以对象转 JSON 的形式存在 localStorage 中
+     * 2.如果 localStorage 中还没有一个 key，那么就创建一个对象
+     *   如果已经有，那么就取出当前的对象，添加后再 set 替换
+     */
+    collect () {
+        this.$store.dispatch('saveCollectionList', this.cacheBookInfo);
+    },
     // vue-router 返回上一页
     backPrePage () {
       this.$router.go(-1);
@@ -158,9 +183,13 @@ export default {
     .collect {
       position: absolute;
       right: 13px;
+      .true {
+       color: $color-theme;
+      }
 
       i {
         font-size: 20px;
+        color: $color-lightgray;
       }
     }
   }

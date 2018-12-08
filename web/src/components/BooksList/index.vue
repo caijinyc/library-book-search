@@ -37,14 +37,7 @@
               <span class="lil-title">
                 作者 {{ parseAuthor(item.publisher) }} / 出版 {{ item.bookman }}
               </span>
-              
             </p>
-            <!-- <p class="book-concern">
-              <span class="lil-title">
-                出版: 
-              </span>
-              
-            </p> -->
           </li>
         </ul>
       </div>

@@ -18,7 +18,7 @@
           </p>
         </button>
       </router-link>
-      <router-link to="/collection">
+      <router-link>
         <button class="me">
           <i class="iconfont icon-wo"></i>
           <p>

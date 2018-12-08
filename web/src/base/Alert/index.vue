@@ -1,7 +1,6 @@
 <template>
   <div class="alert-container">
     <p>{{ text }}</p>
-    <div class="background"></div>
   </div>
 </template>
 
