@@ -45,6 +45,7 @@
 <script>
   import axios from 'axios';
   import Store from '../../common/js/storage.js';
+  import { HOST } from '../../common/js/config.js';
 
   import Loding from '../../base/Loding';
 
@@ -68,7 +69,7 @@
     methods: {
       getBookInfoByNum (num) {
         this.showLoding = true;
-        const url = `http://192.168.31.28:3000/booknum?num=${num}`;
+        const url = `${HOST}/booknum?num=${num}`;
         axios.get(url).then((res) => {
           this.showLoding = false;
           this.$store.commit('SET_BOOK_DETAIL', res.data[0]);
@@ -114,8 +115,9 @@
       color: $color-theme-gray;
     }
   }
-
+    
   .books-list-container {
+    overflow: hidden;
     list-style-type: none;
     text-align: left;
     padding-bottom: 59px;
@@ -123,8 +125,10 @@
     li {
       position: relative;
       padding: 15px 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px 0 rgba(165, 165, 165, 0.26);
+      margin: 15px 10px;
       text-align: left;
-      border-bottom: 1px solid $color-border-divide;
 
       i {
         position: absolute;

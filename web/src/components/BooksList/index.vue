@@ -50,6 +50,8 @@
 import axios from 'axios';
 import Store from '../../common/js/storage.js';
 
+import { HOST } from '../../common/js/config.js';
+
 import Loding from '../../base/Loding';
 import Alert from '../../base/Alert';
 
@@ -101,11 +103,11 @@ export default {
       return authorArr[0];
     },
     backHomepage () {
-      this.$router.go(-1);
+      this.$router.push('/');
     },
     getBookInfoByNum (num) {
       this.showLoding = true;
-      const url = `http://192.168.31.28:3000/booknum?num=${num}`;
+      const url = `${HOST}/booknum?num=${num}`;
       axios.get(url).then((res) => {
         this.showLoding = false;
         this.$store.commit('SET_BOOK_DETAIL', res.data[0]);
@@ -125,7 +127,7 @@ export default {
         return;
       }
       this.showLoding = true;
-      const url = `http://192.168.31.28:3000/searchname?bookname=${this.searchName}`;
+      const url = `${HOST}/searchname?bookname=${this.searchName}`;
       axios.get(url).then((res) => {
         this.showLoding = false;
         // 拿到检索结果后显示 list 界面
@@ -230,15 +232,17 @@ export default {
   .books-list-container {
     list-style-type: none;
     text-align: left;
+    padding-bottom: 1px;
     
     li {
       padding: 15px 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px 0 rgba(165, 165, 165, 0.26);
+      margin: 15px 10px;
       text-align: left;
-      border-bottom: 1px solid $color-border-divide;
       
       .title {
         font-size: 24px;
-        // font-weight: bold;
         color: $color-text;
       }
 

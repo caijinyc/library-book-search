@@ -73,7 +73,6 @@
 </template>
 
 <script>
-// import Store from '../../common/js/storage.js';
 
 export default {
   name: 'BookDetail',

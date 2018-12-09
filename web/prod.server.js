@@ -1,5 +1,4 @@
 const express = require('express');
-// var config = require('./config/index')
 const app = express();
 app.use(express.static('./dist'));
 

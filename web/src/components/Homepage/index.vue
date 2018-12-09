@@ -25,6 +25,7 @@
 <script>
 import axios from 'axios';
 import Store from '../../common/js/storage.js';
+import { HOST } from '../../common/js/config.js';
 
 import Loding from '../../base/Loding';
 import Alert from '../../base/Alert';
@@ -70,7 +71,7 @@ export default {
         return;
       }
       this.showLoding = true;
-      const url = `http://192.168.31.28:3000/searchname?bookname=${this.searchName}`;
+      const url = `${HOST}/searchname?bookname=${this.searchName}`;
       axios.get(url).then((res) => {
         // 拿到检索结果后显示 list 界面
         this.showLoding = false;
