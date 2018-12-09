@@ -189,7 +189,9 @@
         height: 30px;
         color: #fff;
         font-size: 14px;
-
+        outline:none;
+        border: none;
+        background: none;
       }
     }
 

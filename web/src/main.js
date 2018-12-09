@@ -7,6 +7,7 @@ import Collection from './components/Collection';
 import Homepage from './components/Homepage';
 import BooksList from './components/BooksList';
 import BookDetail from './components/BookDetail';
+import Me from './components/Me';
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
@@ -16,7 +17,8 @@ const routes = [
   { path: '/collection', component: Collection },
   { path: '/search', component: Homepage},
   { path: '/bookslist', component: BooksList},
-  { path: '/bookdetail', component: BookDetail}
+  { path: '/bookdetail', component: BookDetail},
+  { path: '/me', component: Me}
 ];
 
 const router = new VueRouter({
