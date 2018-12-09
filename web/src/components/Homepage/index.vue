@@ -24,6 +24,7 @@
 
 <script>
 import axios from 'axios';
+import Store from '../../common/js/storage.js';
 
 import Loding from '../../base/Loding';
 import Alert from '../../base/Alert';
@@ -74,6 +75,7 @@ export default {
         // 拿到检索结果后显示 list 界面
         this.showLoding = false;
         this.$store.commit('SET_BOOKS_LIST', res.data);
+        Store.set('booksList', res.data);
         this.$router.push('/bookslist');
       });
     },

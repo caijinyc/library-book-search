@@ -7,8 +7,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     searchName: '',
-    bookDetail: null,
-    booksList: null,
+    bookDetail: Store.get('bookDetail', []),
+    booksList: Store.get('booksList', []),
     collectionList: Store.get('collection', [])
   },
   getters: {

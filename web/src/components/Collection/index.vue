@@ -44,6 +44,7 @@
 
 <script>
   import axios from 'axios';
+  import Store from '../../common/js/storage.js';
 
   import Loding from '../../base/Loding';
 
@@ -71,6 +72,7 @@
         axios.get(url).then((res) => {
           this.showLoding = false;
           this.$store.commit('SET_BOOK_DETAIL', res.data[0]);
+          Store.set('bookDetail', res.data[0]);
           this.$router.push('/bookdetail');
         }).catch(() => {
           // TODO：发出错误提示
