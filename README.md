@@ -1,14 +1,22 @@
 # 书查查 - library-book-search
 
 图书馆书籍查询小程序，项目演示地址：[书查查](http://ser.caijin.tech:3003)，或者使用手机扫描二维码查看：
-
+<div align="center"><img src="https://github.com/orbem/library-book-search/blob/master/img/qrcode.png" /></div>
 
 
 推荐使用手机预览，电脑请在 Chrome 调试模式下的手机模式。
 
 ## 预览
 
+**主页、查询列表**
 
+<div align="center"><img width="400" src="https://github.com/orbem/library-book-search/blob/master/img/a.png" /></div>
+<div align="center"><img width="400" src="https://github.com/orbem/library-book-search/blob/master/img/b.png" /></div>
+
+**书籍详情、收藏列表**
+
+<div align="center"><img width="400" src="https://github.com/orbem/library-book-search/blob/master/img/c.png" /></div>
+<div align="center"><img width="400" src="https://github.com/orbem/library-book-search/blob/master/img/d.png" /></div>
 
 ## 技术栈
 
