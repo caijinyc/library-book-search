@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
-    password: 'lovegcc1212',
+//    password: '*******',
     database: 'library_books_info' // 数据库
 });
 
