@@ -1,6 +1,6 @@
 # 书查查 - library-book-search
 
-图书馆书籍查询小程序，项目演示地址：[书查查](http://ser.caijin.tech:3003)，或者使用手机扫描二维码查看：
+图书馆书籍查询 WebApp，项目演示地址：[书查查](http://ser.caijin.tech:3003)，或者使用手机扫描二维码查看：
 <div><img src="https://github.com/orbem/library-book-search/blob/master/img/qrcode.png" /></div>
 
 
